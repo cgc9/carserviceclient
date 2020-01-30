@@ -29,6 +29,7 @@ export class CarEditComponent implements OnInit, OnDestroy {
           if (car) {
             this.car = car;
             this.car.href = car._links.self.href;
+            console.log("ref:::" + this.car.href);
             this.giphyService.get(car.name).subscribe(url => car.giphyUrl = url);
           } else {
             console.log(`Car with id '${id}' not found, returning to list`);
