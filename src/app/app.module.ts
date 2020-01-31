@@ -7,12 +7,13 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CarListComponent } from './car-list/car-list.component';
 
-import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolbarModule, MatCheckboxModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarEditComponent } from './car-edit/car-edit.component';
 import { FormsModule } from '@angular/forms';
 import { OwnerListComponent } from './owner-list/owner-list.component';
 import { OwnerEditComponent } from './owner-edit/owner-edit.component';
+import { OwnerCarComponent } from './owner-car/owner-car.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,11 @@ import { OwnerEditComponent } from './owner-edit/owner-edit.component';
     CarListComponent,
     CarEditComponent,
     OwnerListComponent,
-    OwnerEditComponent
+    OwnerEditComponent,
+    OwnerCarComponent
   ],
   imports: [
+    MatCheckboxModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 
 export class OwnerEditComponent implements OnInit, OnDestroy {
   owners: Array<any>;
-  owner: any = {};
+  owner: any ={};
   sub: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private ownerService: OwnerService) { }
