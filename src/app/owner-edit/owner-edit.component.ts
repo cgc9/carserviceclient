@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 
 export class OwnerEditComponent implements OnInit, OnDestroy {
   owners: Array<any>;
-  owner: any ={};
+  owner: any = {};
   sub: Subscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private ownerService: OwnerService) { }
@@ -43,7 +43,7 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
       if (id) {
         this.ownerService.getAll().subscribe((owner: any) => {
           this.owners = owner._embedded.owners;
-          for (let owner of this.owners) {
+          for (owner of this.owners) {
             if (owner.dni == id) {
               this.owner = owner;
               this.owner.href = owner._links.self.href;

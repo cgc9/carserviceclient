@@ -9,14 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class OwnerListComponent implements OnInit {
   owners: Array<any>;
-  selected: Array<any> ;
+  owner: any;
+  selected: Array<any> = [] ;
 
   constructor(private route: ActivatedRoute, private router: Router, private ownerService: OwnerService) { }
 
   ngOnInit() {
-    this.selected = [];
     this.ownerService.getAll().subscribe(data => {
-      this.owners = data._embedded.owners;
+    this.owners = data._embedded.owners;
     });
   }
 
@@ -31,15 +31,11 @@ export class OwnerListComponent implements OnInit {
 
   remove() {
     for (const owner of this.selected) {
-      console.log("Eliminar:"+ owner);
-      this.ownerService.remove(owner.href).subscribe(result => {
-        this.gotoList();
+      this.ownerService.remove(owner._links.self.href).subscribe(result => {
+        this.ngOnInit();
       }, error => console.error(error));
     }
   }
-
-
-
 
 }
 

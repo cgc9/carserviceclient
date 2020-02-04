@@ -10,8 +10,8 @@
                  required name="name" #name>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Owner" [(ngModel)]="car.ownerDni"
-                 required name="owner" #owner>
+          <input matInput placeholder="Owner" (input)="getDni($event)" [(ngModel)]="car.ownerDni"
+                 name="ownerDni" #ownerDni>
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>

@@ -18,11 +18,15 @@ export class OwnerService {
     return this.http.get(this.OWNER_API + '/' + id);
   }
 
+  getByDni(dni: string) {
+    return this.http.get(this.OWNER_API + '/' + dni);
+  }
+
   save(owner: any): Observable<any> {
     let result: Observable<Object>;
     console.log(owner);
     if (owner['href']) {
-      console.log("hola"+owner['href']);
+      //console.log("hola"+owner['href']);
       result = this.http.put(owner.href, owner);
     } else {
       result = this.http.post(this.OWNER_API, owner);
