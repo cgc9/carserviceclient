@@ -13,7 +13,7 @@ import { NgForm } from '@angular/forms';
 })
 export class OwnerCarComponent implements OnInit {
   cars: Array<any>;
-  //owner: any = {};
+  ownerList: Array<any>;
   owners: Array<any>;
   ownerName: any;
 
@@ -23,25 +23,31 @@ export class OwnerCarComponent implements OnInit {
 
   ngOnInit() {
     this.owners = [];
+    this.ownerList = [];
     this.ownerService.getAll().subscribe((owner: any) => {
-          this.owners = owner._embedded.owners;
-        });
-    this.carService.getAll().subscribe(data => {
-      this.cars = data;
-      for (const car of this.cars) {
-        this.giphyService.get(car.name).subscribe(url => car.giphyUrl = url);
-        for (const owner of this.owners) {
-          if(owner.dni == car.ownerDni){
-            car.ownerDni = owner.name;
-            console.log(car.ownerDni);
+      this.owners = owner._embedded.owners;
 
-          }
+      this.carService.getAll().subscribe(data => {
+        this.cars = data;
+        for (const car of this.cars) {
+          this.giphyService.get(car.name).subscribe(url => {
+            car.giphyUrl = url;
+            for (const owner of this.owners) {
+              if (owner.dni === car.ownerDni) {
+                this.ownerList.push({
+                  carName: car.name,
+                  ownerDni: car.ownerDni,
+                  ownerName: owner.name,
+                  giphyUrl: car.giphyUrl
+                });
 
+              }
+
+            }
+          });
         }
-      }
+      });
     });
   }
 
-
-
-  }
+}
