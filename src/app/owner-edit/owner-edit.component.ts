@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import {OwnerService} from '../shared/owner/owner.service';
+import { OwnerService } from '../shared/owner/owner.service';
+import { CarService } from '../shared/car/car.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -15,7 +16,7 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
   owner: any = {};
   sub: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router, private ownerService: OwnerService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private ownerService: OwnerService, private carService: CarService) { }
 
 
   ngOnInit() {
@@ -71,11 +72,23 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
   }
 
   remove(href) {
-    this.ownerService.remove(href).subscribe(result => {
-      this.gotoList();
-    }, error => console.error(error));
-  }
+    for (const owner of this.owners) {
+      this.ownerService.remove(href).subscribe(result => {
+        this.gotoList();
+        const ownerDni = owner.dni;
+        this.carService.getAll().subscribe((cars) => {
+          for (const car of cars) {
+            if (car.ownerDni === ownerDni) {
+              car.ownerDni = null;
+              this.carService.save(car).subscribe(() => {
+              });
+            }
+          }
+        });
 
+      }, error => console.error(error));
+    }
+  }
 
 }
 
