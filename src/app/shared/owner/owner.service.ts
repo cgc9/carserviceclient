@@ -26,7 +26,6 @@ export class OwnerService {
     let result: Observable<Object>;
     console.log(owner);
     if (owner['href']) {
-      //console.log("hola"+owner['href']);
       result = this.http.put(owner.href, owner);
     } else {
       result = this.http.post(this.OWNER_API, owner);

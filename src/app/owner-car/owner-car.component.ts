@@ -49,9 +49,7 @@ export class OwnerCarComponent implements OnInit {
       });
     });
 
-    // for(const line of this.ownerList){
-    //   console.log(line);
-    // }
-  }
+
+}
 
 }

@@ -73,7 +73,7 @@ export class CarEditComponent implements OnInit, OnDestroy {
           this.gotoList();
         });
       } else {
-        alert('Propietario no existente');
+        alert('Propietario no existe');
       }
     });
 
