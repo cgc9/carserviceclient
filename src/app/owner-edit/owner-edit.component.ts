@@ -20,24 +20,6 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-
-    // this.sub = this.route.params.subscribe(params => {
-    //   const id = params['id'];
-    //   if (id) {
-    //     this.ownerService.get(id).subscribe((owner: any) => {
-    //       if (owner) {
-    //         this.owner = owner;
-    //         this.owner.href = owner._links.self.href;
-    //         console.log( this.owner.href);
-    //       } else {
-    //         console.log(`Car with id '${id}' not found, returning to list`);
-    //         this.gotoList();
-    //       }
-    //     });
-    //   }
-    // });
-
-
     this.owners = [];
     this.sub = this.route.params.subscribe(params => {
       const id = params["id"];
@@ -45,7 +27,7 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
         this.ownerService.getAll().subscribe((owner: any) => {
           this.owners = owner._embedded.owners;
           for (owner of this.owners) {
-            if (owner.dni == id) {
+            if (owner.dni === id) {
               this.owner = owner;
               this.owner.href = owner._links.self.href;
             }
@@ -72,10 +54,8 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
   }
 
   remove(href) {
-    for (const owner of this.owners) {
       this.ownerService.remove(href).subscribe(result => {
-        this.gotoList();
-        const ownerDni = owner.dni;
+        const ownerDni = this.owner.dni;
         this.carService.getAll().subscribe((cars) => {
           for (const car of cars) {
             if (car.ownerDni === ownerDni) {
@@ -85,11 +65,8 @@ export class OwnerEditComponent implements OnInit, OnDestroy {
             }
           }
         });
-
+        this.gotoList();
       }, error => console.error(error));
-    }
-  }
-
 }
 
-
+}

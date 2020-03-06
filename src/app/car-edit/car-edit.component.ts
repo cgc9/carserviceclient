@@ -44,9 +44,8 @@ export class CarEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  getDni(event: Event) {
-    this.ownerDni = (event.target as HTMLInputElement).value;
-    console.log(this.ownerDni);
+  getDni(ownerDni) {
+    this.ownerDni = ownerDni;
   }
 
   ngOnDestroy() {
@@ -63,7 +62,9 @@ export class CarEditComponent implements OnInit, OnDestroy {
       this.owners = owner._embedded.owners;
       for (owner of this.owners) {
 
-        if (owner.dni == this.ownerDni) {
+        if (owner.dni === this.ownerDni) {
+          this.exist = true;
+        } else if (!this.ownerDni) {
           this.exist = true;
         }
       }
@@ -72,7 +73,7 @@ export class CarEditComponent implements OnInit, OnDestroy {
           this.gotoList();
         });
       } else {
-        alert('Propietario invalido');
+        alert('Propietario no existente');
       }
     });
 
@@ -84,6 +85,8 @@ export class CarEditComponent implements OnInit, OnDestroy {
       this.gotoList();
     }, error => console.error(error));
   }
+
+
 
 
 }

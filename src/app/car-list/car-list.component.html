@@ -11,7 +11,8 @@
     </mat-list>
   </mat-card-content>
 
-  <button mat-fab color="primary" [routerLink]="['/car-add']">Add</button>
-  <a  mat-button color="primary" routerLink="/owner-list">Go to owner list</a>
-  <a  mat-button color="primary" routerLink="/owner-car">Go to Car-Owner list</a>
+  <button mat-raised-button  color="primary" [routerLink]="['/car-add']">Add New Car</button>
+  <button mat-stroked-button color="primary"  [routerLink]="['/owner-list']" style="margin-left: 10px;">Go to owner list</button>
+  <button mat-stroked-button color="primary"  [routerLink]="['/owner-car']" style="margin-left: 10px;">Go to Car-Owner list</button>
+
 </mat-card>
